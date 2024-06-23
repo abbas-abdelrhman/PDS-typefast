@@ -3,13 +3,13 @@ package com.group15.typefast;
 import java.io.Serializable;
 
 public class ScoreObject implements Serializable , Comparable {
-    long score;
+    Long score;
 
-    public long getScore() {
+    public Long getScore() {
         return score;
     }
 
-    public void setScore(long score) {
+    public void setScore(Long score) {
         this.score = score;
     }
 

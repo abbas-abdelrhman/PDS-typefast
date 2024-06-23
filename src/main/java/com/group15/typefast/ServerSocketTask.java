@@ -208,7 +208,8 @@ public class ServerSocketTask implements Runnable {
                                 }
                             }
                             long c = 0;
-                            bw.write("wait \n");
+                            bw.write("wait");
+                            bw.write("\n");
                             bw.flush();
                             while (true) {
 
@@ -222,7 +223,7 @@ public class ServerSocketTask implements Runnable {
                                         receivedUser.setScore(c);
                                     }
                                     if (receivedUser.equals(team.get(0))) {
-                                        ScoreObject score = new ScoreObject();
+                                        var score = new ScoreObject();
                                         score.setScore(c);
                                         scoreList.add(score);
                                         if (scoreList.size() > 1)
