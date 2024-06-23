@@ -223,7 +223,7 @@ public class ServerSocketTask implements Runnable {
                                         receivedUser.setScore(c);
                                     }
                                     if (receivedUser.equals(team.get(0))) {
-                                        var score = new ScoreObject();
+                                        ScoreObject score = new ScoreObject();
                                         score.setScore(c);
                                         scoreList.add(score);
                                         if (scoreList.size() > 1)

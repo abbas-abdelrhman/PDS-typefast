@@ -22,3 +22,9 @@ To start develop the program "Typefast", ensure you have the following prerequis
 
 
 ## Execution & Starting the game
+
+### Start the Server 
+
+### Create users 
+
+### Start the game 
