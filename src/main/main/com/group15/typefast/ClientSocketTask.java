@@ -1,4 +1,4 @@
-package system;
+package com.group15.typefast;
 
 
 import java.io.*;
@@ -6,7 +6,6 @@ import java.net.Socket;
 
 import java.util.List;
 import java.util.Scanner;
-import java.util.UUID;
 
 public class ClientSocketTask implements Runnable {
 

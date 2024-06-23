@@ -1,4 +1,4 @@
-package system;
+package com.group15.typefast;
 
 import java.io.Serializable;
 

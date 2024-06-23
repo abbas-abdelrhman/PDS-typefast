@@ -1,15 +1,15 @@
-package system;
+package com.group15.typefast;
 
 import java.io.Serializable;
 
 public class ScoreObject implements Serializable , Comparable {
-    Long score;
+    long score;
 
-    public Long getScore() {
+    public long getScore() {
         return score;
     }
 
-    public void setScore(Long score) {
+    public void setScore(long score) {
         this.score = score;
     }
 
