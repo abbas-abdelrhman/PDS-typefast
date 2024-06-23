@@ -1,4 +1,4 @@
-package system;
+package com.group15.typefast;
 
 import java.io.*;
 import java.net.Socket;
@@ -208,8 +208,7 @@ public class ServerSocketTask implements Runnable {
                                 }
                             }
                             long c = 0;
-                            bw.write("wait");
-                            bw.write("\n");
+                            bw.write("wait \n");
                             bw.flush();
                             while (true) {
 
@@ -223,7 +222,7 @@ public class ServerSocketTask implements Runnable {
                                         receivedUser.setScore(c);
                                     }
                                     if (receivedUser.equals(team.get(0))) {
-                                        var score = new ScoreObject();
+                                        ScoreObject score = new ScoreObject();
                                         score.setScore(c);
                                         scoreList.add(score);
                                         if (scoreList.size() > 1)
