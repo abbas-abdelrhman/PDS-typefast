@@ -10,40 +10,38 @@ import java.util.concurrent.Executors;
 
 public class Server {
 
-    public static void main(String[] args) throws IOException {
-        int port = 1234; // initialize port number
-        ServerSocket serverSocket = new ServerSocket(port);// Start a new server socket
-
-
+    public static void main(String[] args) {
+        int port = 8080; // Initialize port number
         List<ScoreObject> scoreList = new ArrayList<>(15);
         ArrayList<User> usersList = new ArrayList<>(15);
-        ArrayList<ArrayList<User>> teamList = new ArrayList<>(15);
         ArrayList<Boolean> stat = new ArrayList<>(15);
-        for(int i=0;i<15;i++)
+        for (int i = 0; i < 15; i++) {
             stat.add(false);
+        }
         int bestScore = 99999;
-
-//       fillPlaysList(playsList, "src/system/plays.txt");
 
         ExecutorService executorService = Executors.newFixedThreadPool(15);
 
-        System.out.println("wait for connections");
+        try (ServerSocket serverSocket = new ServerSocket(port)) {
+            System.out.println("Waiting for connections");
 
-        while (true) {
+            while (true) {
+                try {
+                    // Create Socket
+                    Socket connection = serverSocket.accept();
+                    ServerSocketTask serverTask = new ServerSocketTask(connection, usersList, scoreList, bestScore);
+                    executorService.submit(serverTask);
 
-            try {
-                // Create Socket
-                Socket connection = serverSocket.accept();
-                ServerSocketTask serverTask = new ServerSocketTask(bestScore,connection, usersList, teamList, scoreList, bestScore, stat); // create a new socket task
-                executorService.submit(serverTask);
-
-            } catch (IOException e) {
-                e.getStackTrace();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
             }
-
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            // Ensure proper shutdown of the executor service
+            executorService.shutdown();
         }
-
     }
 }
-
 
