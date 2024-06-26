@@ -1,6 +1,6 @@
 package com.group15.typefast;
 
-  public class Client {
+public class Client {
 
     public static void main(String[] args) {
 
@@ -8,4 +8,3 @@ package com.group15.typefast;
                 clientThread.run(); //Run Task
         }
     }
-
