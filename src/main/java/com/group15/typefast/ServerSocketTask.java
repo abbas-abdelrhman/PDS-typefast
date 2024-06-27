@@ -20,7 +20,7 @@ public class ServerSocketTask implements Runnable {
     private int initialTimer = 30000; // delay in millis
     private static final ConcurrentHashMap<Integer, String> currentWords = new ConcurrentHashMap<>();
     private static final ConcurrentHashMap<Integer, Long> wordStartTimes = new ConcurrentHashMap<>();
-    private static final List<String> WORDS = List.of("cat", "animal", "umbrella", "acronym", "difficult", "synchronous", "appropriation", "sophisticated", "apprenticeship", "designation");
+    private static final List<String> WORDS = List.of("cat", "animal", "umbrella", "acronym", "difficult", "synchronous", "appropriation", "sophisticated", "apprenticeship", "designation", "End");
     private static final ConcurrentHashMap<Integer, Integer> teamScores = new ConcurrentHashMap<>();
 
     public ServerSocketTask(Socket s, List<User> usersList, List<ScoreObject> scoreList, int bestScore) {
@@ -156,12 +156,19 @@ public class ServerSocketTask implements Runnable {
     }
 
     private void sendNewWordToUser(User user) throws IOException {
-        user.setCurrentLevel(user.getCurrentLevel() + 1);
         String newWord = WORDS.get(user.getCurrentLevel() % WORDS.size());
         currentWords.put(user.getTeamID(), newWord);
         wordStartTimes.put(user.getTeamID(), System.currentTimeMillis());
-        sendResponse(user.getBufferedWriter(), "New word: " + newWord + ". You have " + initialTimer / 1000 + " seconds!");
-        initialTimer -= 1;
+        if (newWord.equals("End")) {
+            sendResponse(user.getBufferedWriter(), "Congratulations... Your team have finished the game with score of " + user.getScore() +" Points!");
+            sendResponse(user.getBufferedWriter(), "Game Over");
+
+            return;
+        }
+        sendResponse(user.getBufferedWriter(), "Your Team Score: " + user.getScore() + " points!" + " New word: " + newWord);
+        user.setScore(user.getScore()+1);
+        user.setCurrentLevel(user.getCurrentLevel() + 1);
+
     }
 
     private void handleAnswerSubmission(User user,String request, ObjectInputStream ois, BufferedWriter bw) throws IOException, ClassNotFoundException, InterruptedException {
