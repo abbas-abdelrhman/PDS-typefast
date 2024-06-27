@@ -238,7 +238,7 @@ public class ClientSocketTask implements Runnable {
                 System.out.println("\n");
 
                 if (serverMessage.startsWith("Congratulations")) {
-                    this.user.setSpectator(true); 
+                    this.user.gameOver();
                     return;
                 }
                 System.out.print("\033[0;33m(Q/q to spectate) Your answer: \033[0m");
@@ -307,6 +307,11 @@ public class ClientSocketTask implements Runnable {
                 if (serverMessage.contains("New word")) {
                     System.out.println(serverMessage); 
                 }
+                if (serverMessage.contains("Game Over")) {
+                    System.out.println("Congratulations... Your team have finished the game with score of 10 Points!\n ");
+                    user.gameOver();
+                }
+
             }
         }
     }

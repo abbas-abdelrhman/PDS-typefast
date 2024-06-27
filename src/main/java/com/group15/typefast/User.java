@@ -12,7 +12,7 @@ public class User implements Serializable {
     private boolean isSpectator;
     boolean inGame;
     private int teamID;
-    private int score;
+    private int score = 0;
     private long lastResponseTime;
     private int correctWordCount;
     private int currentLevel = 0;
@@ -155,4 +155,12 @@ public class User implements Serializable {
         this.currentTrials = 1;
     }
     
+    public void gameOver(){
+        this.setCorrectWordCount(0);
+        this.setCurrentLevel(0);
+        this.setInGame(false);
+        this.setSpectator(false);
+        this.setReady(false);
+        this.setTeamd(false);
+    }
 }
