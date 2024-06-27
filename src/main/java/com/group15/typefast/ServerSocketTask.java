@@ -142,6 +142,7 @@ public class ServerSocketTask implements Runnable {
         user.setReady(true); // Set user as ready
         sendResponse(bw, "Waiting for all team members to be ready...");
 
+        
         while (true) {
             boolean allReady = team.getTeamUsers().stream().allMatch(User::isReady);
             if (allReady) {
@@ -150,6 +151,7 @@ public class ServerSocketTask implements Runnable {
                 handleAnswerSubmission(user,request, ois, bw);
                 break;
             }
+            Thread.sleep(300);
         }
     }
 
@@ -260,30 +262,5 @@ public class ServerSocketTask implements Runnable {
         bw.flush();
     }
 
-    public class NonBlockingTimer {
-        private final ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1);
-        private ScheduledFuture<?> scheduledFuture;
-
-        public void startTimer(Runnable task, long delayMillis) {
-            CompletableFuture<Void> future = new CompletableFuture<>();
-
-            scheduledFuture = scheduler.schedule(() -> {
-                try {
-                    task.run();
-                    future.complete(null);
-                } catch (Exception e) {
-                    future.completeExceptionally(e);
-                }
-            }, delayMillis, TimeUnit.MILLISECONDS);
-
-            future.thenRunAsync(() -> System.out.println("Task completed!"));
-        }
-
-        public void stopTimer() {
-            if (scheduledFuture != null && !scheduledFuture.isDone()) {
-                scheduledFuture.cancel(true);
-                System.out.println("Timer stopped.");
-            }
-        }
-    }
 }
+
