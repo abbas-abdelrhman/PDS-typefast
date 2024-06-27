@@ -8,6 +8,7 @@ public class Team implements Serializable {
     private int teamID;
     private int teamScore;
     private ArrayList<User> teamMates;
+    private long totalTime;
 
     // Constructor to initialize the teamMates list
     public Team() {
@@ -50,5 +51,21 @@ public class Team implements Serializable {
             }
         }
         return activePlayers;
+    }
+
+    public ArrayList<User> getTeamMates() {
+        return teamMates;
+    }
+
+    public void setTeamMates(ArrayList<User> teamMates) {
+        this.teamMates = teamMates;
+    }
+
+    public long getTotalTime() {
+        return totalTime;
+    }
+
+    public void setTotalTime(long totalTime) {
+        this.totalTime = totalTime;
     }
 }

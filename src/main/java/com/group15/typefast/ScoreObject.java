@@ -2,14 +2,29 @@ package com.group15.typefast;
 
 import java.io.Serializable;
 
+@SuppressWarnings("rawtypes")
 public class ScoreObject implements Serializable , Comparable {
-    Long score;
+    int score;
+    Long time;
 
-    public Long getScore() {
+    public ScoreObject(int score, long time){
+        this.score = score;
+        this.time = time;
+    }
+
+    public Long getTime() {
+        return time;
+    }
+
+    public void setTime(Long time) {
+        this.time = time;
+    }
+
+    public int getScore() {
         return score;
     }
 
-    public void setScore(Long score) {
+    public void setScore(int score) {
         this.score = score;
     }
 
